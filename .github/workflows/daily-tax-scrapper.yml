@@ -1,0 +1,35 @@
+name: Daily Tax Data Scraper
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # Every day at 6:00 UTC
+  workflow_dispatch:    
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run scraper script
+        run: node index.js
+
+      - name: Commit & push data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Update tax data on $(date -u +"%Y-%m-%d")"
+          git push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
