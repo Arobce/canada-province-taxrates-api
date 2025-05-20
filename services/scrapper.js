@@ -12,7 +12,10 @@ const taxRatesURL =
  *                         the text content of a cell in the table.
  */
 export const extractTaxTableData = async () => {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   const page = await browser.newPage();
 
   await page.goto(taxRatesURL, { waitUntil: "networkidle2" });
