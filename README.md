@@ -24,7 +24,7 @@ This project generates JSON files containing tax rate data, which can be used as
 
 Always up-to-date with the latest successful scrape:
 
-`/api/latest.json`
+`https://raw.githubusercontent.com/Arobce/canada-province-taxrates-api/main/api/latest.json`
 
 ### 🔹 Historical Tax Rates (by Date)
 
